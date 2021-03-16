@@ -1,12 +1,34 @@
 <template>
   <div id="app">
-    <router-view/>
+    <nav-bar :user="user" :key="menuKey" @logout="logout"></nav-bar>
+    <router-view :user="user" @login="login"></router-view>
   </div>
 </template>
 
 <script>
+import NavBar from '@/components/NavBar' 
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    navBar: NavBar
+  },
+  data() {
+    return {
+      user: {user_id: 0, first_name: ''},
+      menuKey: 1,
+      defaultUser: {user_id: 0, first_name: ''},
+    }
+  },
+  methods: {
+    login(user) {
+      this.user = user
+      this.menuKey++
+    },
+    logout() {
+      this.user = this.defaultUser
+      this.menuKey++
+    }
+  }
 }
 </script>
 
