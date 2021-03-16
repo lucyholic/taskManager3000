@@ -119,21 +119,12 @@ export default {
     margin-top: 20px;
   }
 
-  .formOperations button {
-    padding:10px;
-    border:none;
-    color:#fff;
-    font-weight:600;
-    border-radius:7px;
-    width: 100px;
-  }
-
-  .formOperations button.submit {
+  .submit {
     background-color:green;
     margin-right: 10px;
   }
 
-  .formOperations button.reset {
+  .reset {
     background-color: #898896
   }
 </style>
