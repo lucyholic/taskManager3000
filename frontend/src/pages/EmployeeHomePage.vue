@@ -1,7 +1,8 @@
 <template>
   <div>
     <EmployeeNavigation />
-    Todo
+    <h2 class="pageTitle">Home</h2>
+    <p class="applicationDescription">Welcome to TaskMaster! Here you can <br> enter your hours and manage your time <br> off requests. You currently have <br> employee privledges. </p>
   </div>
 </template>
 
@@ -15,3 +16,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+.applicationDescription {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 40px;
+}
+
+</style>

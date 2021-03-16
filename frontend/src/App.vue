@@ -23,4 +23,14 @@ export default {
     margin-top: 40px;
     text-align: center;
 }
+
+button {
+  padding:10px;
+  border:none;
+  color:#fff;
+  font-weight:600;
+  border-radius:7px;
+  width: 100px;
+}
+
 </style>
