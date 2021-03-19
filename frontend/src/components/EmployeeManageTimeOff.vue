@@ -31,13 +31,34 @@
           </tr>
       </tbody>
     </table>
-    <button class="requestTimeOff">Request Time Off</button>
+    <button class="requestTimeOff" v-on:click="setRequestTimeOffModalToOpen()">Request Time Off</button>
+    <div v-if="modalOpen">
+      <EmployeeRequestTimeOffModal v-on:unmountRequestTimeOffModal="setRequestTimeOffModalToClose()"/>
+    </div>
   </div>
 </template>
 
 <script>
+import EmployeeRequestTimeOffModal from '../components/EmployeeRequestTimeOffModal'
+
 export default {
-  name: 'EmployeeManageTimeOff'
+  name: 'EmployeeManageTimeOff',
+  data: function () {
+    return {
+      modalOpen: false
+    }
+  },
+  components: {
+    EmployeeRequestTimeOffModal
+  },
+  methods: {
+    setRequestTimeOffModalToOpen() {
+      this.modalOpen = true;
+    },
+    setRequestTimeOffModalToClose() {
+      this.modalOpen = false;
+    }
+  }
 }
 </script>
 

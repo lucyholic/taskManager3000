@@ -100,16 +100,6 @@ export default {
     margin-bottom: 15px;
   }
 
-  input {
-    padding: 3px;
-    padding-left: 10px;
-    border: 2px solid #D3D3D3;
-    border-radius:10px;
-  }
-
-  input:focus {
-    outline-width: 0;
-  }
   .weekFields input {
     padding-right: 10px;
     text-align: right;
