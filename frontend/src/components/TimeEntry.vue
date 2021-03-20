@@ -3,7 +3,7 @@
     <h2 class="pageTitle">Time Entry</h2>
     <div class="userData">
       <label>Name:</label>
-      <input disabled type="text" v-model="name">
+      <input disabled type="text" v-model="user.first_name">
       <label>Department:</label>
       <input disabled type="text" v-model="department">
       <label>Employee ID:</label>
@@ -33,10 +33,15 @@
 
 <script>
 export default {
-  name: 'EmployeeTimeEntry',
-  data: function () {
+  name: 'TimeEntry',
+  props: {
+    user: {
+      type: Object,
+      default: () => {return {user_id: 0, first_name: ''}}
+    }
+  },
+  data() {
     return {
-      name: "Adrian Barsi",
       department: "I.T",
       employeeNumber: "123123",
       dateStart: new Date("March 14 2021"),
@@ -54,6 +59,9 @@ export default {
       }
       return dateRange
     }
+  },
+  created() {
+    
   }
 }
 </script>

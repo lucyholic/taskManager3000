@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <nav-bar :user="user" :key="menuKey" @logout="logout"></nav-bar>
+    <navigation :user="user" :key="menuKey" @logout="logout"></navigation>
     <router-view :user="user" @login="login"></router-view>
   </div>
 </template>
 
 <script>
-import NavBar from '@/components/NavBar' 
+import Navigation from '@/components/Navigation' 
 export default {
   name: 'App',
   components: {
-    navBar: NavBar
+    navigation: Navigation
   },
   data() {
     return {
@@ -28,7 +28,7 @@ export default {
       this.user = this.defaultUser
       this.menuKey++
     }
-  }
+  },
 }
 </script>
 

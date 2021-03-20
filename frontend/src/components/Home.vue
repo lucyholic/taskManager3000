@@ -1,11 +1,19 @@
 <template>
   <div>
     <div v-if="user.user_id === 0">
-      show sign in
+      <div>
+        <label for="name">Login Name:</label>
+        <input type="text" v-model="loginName" name="name">
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="text" v-model="password" name="password">
+      </div>
       <button @click="login">Login</button>
+      <div class="error">{{errorMsg}}</div>
     </div>
     <div v-else>
-      dashboard
+      <p class="applicationDescription">Welcome to TaskMaster! Here you can <br> enter your hours and manage your time <br> off requests. You currently have <br> employee privledges. </p>
     </div>
   </div>
 </template>
@@ -23,30 +31,39 @@ export default {
     return {
       loginName: '',
       password: '',
-      userData: {}
+      userData: {},
+      errorMsg: '',
     }
   },
   created() {
-    
+
   },
   methods: {
     login() {
-      this.userData = {
-        "user_id": 1,
-        "first_name": "Lucy",
-        "last_name": "Kim",
-        "login_name": "lkim",
-        "login_password": "secret",
-        "department_id": 1,
-        "user_type_id": 1
-      }
-
-      this.$emit('login', this.userData)
+      this.$http.post('/api/users/login', {
+        loginName: this.loginName, 
+        password: this.password
+      }).then((res) => {
+        console.log(res.data)
+        if (res.data) {
+          this.errorMsg = ''
+          this.userData = res.data
+          this.$emit('login', this.userData)
+        } else {
+          this.errorMsg = "Login name or password is incorrect"
+          this.loginName = ''
+          this.password = ''
+        }
+      })
     }
   },
 }
 </script>
 
 <style scoped>
-
+.applicationDescription {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 40px;
+}
 </style>

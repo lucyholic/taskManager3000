@@ -1,13 +1,13 @@
 <template>
   <div>
     <span class="title">TaskMaster</span>
-    <a href="/test/" class="signOut">Sign Out</a>
-    <span class="userName">{{name}}</span>
+    <button v-if="user.user_id !== 0" @click="logout" class="signOut">Sign Out</button>
+    <span class="userName">{{user.first_name}}</span>
     <div class="topnav">
       <nav>
-          <a href="/#/">Home</a>
-          <a href="/#/employeeTimeEntry">Time Entry</a>
-          <a href="/#/employeeManageTimeOff">Manage Time Off</a>
+        <router-link class="navLink" to="/">Home</router-link>
+        <router-link v-if="user.user_id !== 0" class="navLink" to="/timeEntry">Time Entry</router-link>
+        <router-link v-if="user.user_id !== 0" class="navLink" to="/timeOff">Manage Time Off</router-link>
       </nav>
     </div>
   </div>
@@ -15,10 +15,20 @@
 
 <script>
 export default {
-  name: 'EmployeeNavigation',
-  data: function () {
+  name: 'NavBar',
+  props: {
+    user: {
+      type: Object,
+      default: () => {return {user_id: 0, first_name: ''}}
+    }
+  },
+  data() {
     return {
-      name: "Adrian Barsi"
+    }
+  },
+  methods: {
+    logout() {
+      this.$emit('logout')
     }
   }
 }
@@ -45,7 +55,7 @@ export default {
   margin-right: 30px;
 }
 
-.topnav a {
+.topnav .navLink {
   float: left;
   color: black;
   text-align: center;
@@ -54,7 +64,7 @@ export default {
   font-size: 17px;
 }
 
-.topnav a:hover {
+.topnav .navLink:hover {
   background-color: white;
 }
 

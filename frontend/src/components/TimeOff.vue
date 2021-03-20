@@ -42,7 +42,7 @@
 import EmployeeRequestTimeOffModal from '../components/EmployeeRequestTimeOffModal'
 
 export default {
-  name: 'EmployeeManageTimeOff',
+  name: 'timeOff',
   data: function () {
     return {
       modalOpen: false
@@ -51,6 +51,12 @@ export default {
   components: {
     EmployeeRequestTimeOffModal
   },
+  props: {
+    user: {
+      type: Object,
+      default: () => {return {user_id: 0, first_name: ''}}
+    }
+  },
   methods: {
     setRequestTimeOffModalToOpen() {
       this.modalOpen = true;
@@ -58,7 +64,7 @@ export default {
     setRequestTimeOffModalToClose() {
       this.modalOpen = false;
     }
-  }
+  },
 }
 </script>
 
