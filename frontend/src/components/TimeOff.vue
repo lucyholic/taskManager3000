@@ -33,8 +33,9 @@
     </table>
     <button class="requestTimeOff" v-on:click="setRequestTimeOffModalToOpen()">Request Time Off</button>
     <div v-if="modalOpen">
-      <EmployeeRequestTimeOffModal v-on:unmountRequestTimeOffModal="setRequestTimeOffModalToClose()"/>
+      <EmployeeRequestTimeOffModal v-on:unmountRequestTimeOffModal="setRequestTimeOffModalToClose()" v-on:showPostTimeOffResult="modifyPostResult($event)"/>
     </div>
+    <div>{{postResult}}</div>
   </div>
 </template>
 
@@ -45,7 +46,8 @@ export default {
   name: 'timeOff',
   data: function () {
     return {
-      modalOpen: false
+      modalOpen: false,
+      postResult: ""
     }
   },
   components: {
@@ -63,6 +65,9 @@ export default {
     },
     setRequestTimeOffModalToClose() {
       this.modalOpen = false;
+    },
+    modifyPostResult(resultData) {
+      this.postResult = `Posted timeoff request to server and got back: ${resultData.startDate}, ${resultData.endDate}, ${resultData.type}, ${resultData.reason}`
     }
   },
 }
