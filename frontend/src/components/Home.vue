@@ -13,14 +13,18 @@
       <div class="error">{{errorMsg}}</div>
     </div>
     <div v-else>
-      <p class="applicationDescription">Welcome to TaskMaster! Here you can <br> enter your hours and manage your time <br> off requests. You currently have <br> employee privledges. </p>
+      <dashboard :user="user"></dashboard>
     </div>
   </div>
 </template>
 
 <script>
+import Dashboard from '@/components/Dashboard'
 export default {
   name: "Home",
+  components: {
+    dashboard: Dashboard
+  },
   props: {
     user: {
       type: Object,
@@ -44,7 +48,6 @@ export default {
         loginName: this.loginName, 
         password: this.password
       }).then((res) => {
-        console.log(res.data)
         if (res.data) {
           this.errorMsg = ''
           this.loginName = ''
@@ -63,9 +66,5 @@ export default {
 </script>
 
 <style scoped>
-.applicationDescription {
-  text-align: center;
-  font-size: 20px;
-  margin-top: 40px;
-}
+
 </style>

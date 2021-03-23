@@ -6,9 +6,9 @@
     <div class="topnav">
       <nav>
         <router-link class="navLink" to="/">Home</router-link>
-        <router-link v-if="user" class="navLink" to="/timeEntry">Time Entry</router-link>
+        <router-link v-if="user" class="navLink" to="/timeSummary">Time Summary</router-link>
         <router-link v-if="user" class="navLink" to="/timeOff">Manage Time Off</router-link>
-        <router-link v-if="user && user.type_id === 1" class="navLink" to="/">Admin Menu</router-link>
+        <router-link v-if="user && user.type_id === 1" class="navLink" to="/addUser">Admin Menu</router-link>
         <router-link v-if="user && user.type_id === 2" class="navLink" to="/">Manager Menu</router-link>
         <router-link v-if="user && user.department_id === 1" class="navLink" to="/">HR Menu</router-link>
       </nav>

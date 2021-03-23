@@ -1,13 +1,20 @@
 <template>
   <div v-if="user">
-    <h2 class="pageTitle">Time Entry</h2>
+    <h2 class="pageTitle">Time Summary</h2>
     <div class="userData">
       <label>Name:</label>
-      <input disabled type="text" v-model="user.first_name">
+      <input disabled type="text" v-model="fullName">
       <label>Department:</label>
       <input disabled type="text" v-model="user.department">
     </div>
-    <div class="center">
+
+    <div>
+      <div v-for="el in entries" :key="el.time_log_id">{{el.type}}: {{el.time_stamp}}</div>
+    </div>
+
+
+
+    <!-- <div class="center">
       <button class="chevron"><img src="../assets/leftChevron.png" /></button>
       <span class="weekRange">{{dateStart.toDateString()}} to {{dateEnd.toDateString()}}</span>
       <button class="chevron"><img src="../assets/rightChevron.png" /></button>
@@ -21,17 +28,13 @@
         <label>Total</label>
         <input disabled />
       </div>
-      <div class="formOperations">
-        <button type="submit" class="submit">Submit</button>
-        <button type="reset" class="reset">Reset</button>
-      </div>
-    </form>
+    </form> -->
   </div>
 </template>
 
 <script>
 export default {
-  name: 'TimeEntry',
+  name: 'TimeSummary',
   props: {
     user: {
       type: Object,
@@ -40,11 +43,11 @@ export default {
   },
   data() {
     return {
-      department: "I.T",
-      employeeNumber: "123123",
+      fullName: this.user.first_name + ' ' + this.user.last_name, 
       dateStart: new Date("March 14 2021"),
       dateEnd: new Date("March 20 2021"),
-      dayShortForms: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+      dayShortForms: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      entries: []
     }
   },
   computed: {
@@ -59,7 +62,16 @@ export default {
     }
   },
   created() {
-    
+    this.getTimeEntries()
+  },
+  methods: {
+    getTimeEntries() {
+      this.$http.get('/api/timeEntry/' + this.user.user_id).then((res) => {
+        if (res.status === 200) {
+          this.entries = res.data
+        }
+      })
+    }
   }
 }
 </script>
