@@ -1,13 +1,16 @@
 <template>
   <div>
     <span class="title">TaskMaster</span>
-    <button v-if="user.user_id !== 0" @click="logout" class="signOut">Sign Out</button>
-    <span class="userName">{{user.first_name}}</span>
+    <button v-if="user" @click="logout" class="signOut">Sign Out</button>
+    <span v-if="user" class="userName">{{user.first_name}} ({{user.department}})</span>
     <div class="topnav">
       <nav>
         <router-link class="navLink" to="/">Home</router-link>
-        <router-link v-if="user.user_id !== 0" class="navLink" to="/timeEntry">Time Entry</router-link>
-        <router-link v-if="user.user_id !== 0" class="navLink" to="/timeOff">Manage Time Off</router-link>
+        <router-link v-if="user" class="navLink" to="/timeEntry">Time Entry</router-link>
+        <router-link v-if="user" class="navLink" to="/timeOff">Manage Time Off</router-link>
+        <router-link v-if="user && user.type_id === 1" class="navLink" to="/">Admin Menu</router-link>
+        <router-link v-if="user && user.type_id === 2" class="navLink" to="/">Manager Menu</router-link>
+        <router-link v-if="user && user.department_id === 1" class="navLink" to="/">HR Menu</router-link>
       </nav>
     </div>
   </div>
@@ -19,7 +22,7 @@ export default {
   props: {
     user: {
       type: Object,
-      default: () => {return {user_id: 0, first_name: ''}}
+      default: () => {return null}
     }
   },
   data() {

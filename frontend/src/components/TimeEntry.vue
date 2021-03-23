@@ -1,13 +1,11 @@
 <template>
-  <div>
+  <div v-if="user">
     <h2 class="pageTitle">Time Entry</h2>
     <div class="userData">
       <label>Name:</label>
       <input disabled type="text" v-model="user.first_name">
       <label>Department:</label>
-      <input disabled type="text" v-model="department">
-      <label>Employee ID:</label>
-      <input disabled type="text" v-model="employeeNumber">
+      <input disabled type="text" v-model="user.department">
     </div>
     <div class="center">
       <button class="chevron"><img src="../assets/leftChevron.png" /></button>
@@ -37,7 +35,7 @@ export default {
   props: {
     user: {
       type: Object,
-      default: () => {return {user_id: 0, first_name: ''}}
+      default: () => {return null}
     }
   },
   data() {

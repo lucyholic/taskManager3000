@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="user.user_id === 0">
+    <div v-if="!user">
       <div>
         <label for="name">Login Name:</label>
         <input type="text" v-model="loginName" name="name">
@@ -24,7 +24,7 @@ export default {
   props: {
     user: {
       type: Object,
-      default: () => {return {}}
+      default: () => {return null}
     }
   },
   data() {
@@ -47,6 +47,8 @@ export default {
         console.log(res.data)
         if (res.data) {
           this.errorMsg = ''
+          this.loginName = ''
+          this.password = ''
           this.userData = res.data
           this.$emit('login', this.userData)
         } else {

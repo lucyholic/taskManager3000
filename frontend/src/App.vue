@@ -14,9 +14,8 @@ export default {
   },
   data() {
     return {
-      user: {user_id: 0, first_name: ''},
+      user: null,
       menuKey: 1,
-      defaultUser: {user_id: 0, first_name: ''},
     }
   },
   methods: {
@@ -25,7 +24,7 @@ export default {
       this.menuKey++
     },
     logout() {
-      this.user = this.defaultUser
+      this.user = null
       this.menuKey++
     }
   },

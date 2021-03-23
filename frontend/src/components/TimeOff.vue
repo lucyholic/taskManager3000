@@ -1,5 +1,5 @@
 <template>
-  <div class="employeeManageTimeOff">
+  <div class="employeeManageTimeOff" v-if="user">
     <h2 class="pageTitle">Manage Time Off</h2>
     <table class="timeOffTable">
       <thead>
@@ -56,7 +56,7 @@ export default {
   props: {
     user: {
       type: Object,
-      default: () => {return {user_id: 0, first_name: ''}}
+      default: () => {return null}
     }
   },
   methods: {

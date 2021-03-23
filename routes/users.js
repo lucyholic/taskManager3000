@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var users = require('../json/users.json')
+var mysqlDB = require('../connection');
 
 /* GET users listing. */
 router.get('/', function(req, res) {
@@ -10,13 +10,17 @@ router.get('/', function(req, res) {
 router.post('/login', function (req, res) {
   var loginName = req.body.loginName;
   var password = req.body.password;
-  var user = users.find(el => el.login_name === loginName);
-  var output = false
-  if (user && user.login_password === password) {
-    output = user
-  }
-
-  res.send(output);
+  mysqlDB.query("SELECT * FROM users "
+    + "JOIN user_departments ON users.department_id = user_departments.department_id "
+    + "JOIN user_types ON users.user_type_id = user_types.type_id "
+    + "WHERE login_name = '" + loginName + "' AND login_password = '" + password + "' "
+    + "LIMIT 1", function (error, rows, fields) {
+    if (error || !rows[0]) {
+      res.send(false)
+    } else {
+      res.send(rows[0])
+    }
+  })
 });
 
 router.post('add', function (req, res) {
