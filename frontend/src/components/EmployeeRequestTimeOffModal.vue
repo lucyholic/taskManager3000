@@ -1,27 +1,27 @@
 <template>
-    <modal name="requestTimeOff" width="600" height="500">
+    <modal name="requestTimeOff" width="600" height="500" v-bind:clickToClose="false">
         <button class="closeButton" v-on:click="hide()">&#10006;</button>
         <h2 class="pageTitle">Request Time Off</h2>
         <hr>
-        <form class="timeOffForm" action="/test" method="post">
+        <div class="timeOffForm">
             <label>Start Date:</label>
-            <input type="date" name="timeOffStartDate" v-model="startDate" required>
+            <input type="date" name="timeOffStartDate" v-model="startDate">
             <br>
             <label>End Date:</label>
-            <input type="date" name="timeOffEndDate" v-model="endDate" required>
+            <input type="date" name="timeOffEndDate" v-model="endDate">
             <br>
             <label>Type:</label>
-            <select name="timeOffType" v-model="type" required>
+            <select name="timeOffType" v-model="type">
                 <option value="vacation">Vacation</option>
                 <option value="sickLeave">Sick Leave</option>
                 <option value="personal">Personal</option>
             </select>
             <br>
             <label class="topAlignedLabel">Reason:</label>
-            <textarea name="timeOffReason" v-model="reason" required />
+            <textarea name="timeOffReason" v-model="reason"/>
             <br>
-            <button type="submit" class="submit">Submit</button>
-        </form>
+            <button class="submit" v-on:click="submitRequestTimeOff()">Submit</button>
+        </div>
     </modal>
 </template>
 
@@ -33,13 +33,26 @@ export default {
             startDate: "",
             endDate: "",
             type: "",
-            reason: ""
+            reason: "",
         }
     },
     methods: {
         hide () {
             this.$modal.hide('requestTimeOff');
             this.$emit('unmountRequestTimeOffModal');
+        },
+        submitRequestTimeOff(){
+            console.log('test')
+            this.$http.post('/api/timeOff/addTimeOff', {
+                timeOffStartDate: this.startDate, 
+                timeOffEndDate: this.endDate,
+                timeOffType: this.type,
+                timeOffReason: this.reason
+            }).then((res) => {
+                this.$emit('unmountRequestTimeOffModal');
+                console.log("tste")
+                this.$emit('showPostTimeOffResult', res.data)
+            })
         }
     },
     mounted () {
