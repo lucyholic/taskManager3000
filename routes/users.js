@@ -4,7 +4,9 @@ var mysqlDB = require('../connection');
 
 /* GET users listing. */
 router.get('/', function(req, res) {
-  res.send('respond with a resource');
+  mysqlDB.query("SELECT login_name FROM users", function (error, rows, fields) {
+    res.send(rows)
+  })
 });
 
 router.post('/login', function (req, res) {
@@ -23,8 +25,30 @@ router.post('/login', function (req, res) {
   })
 });
 
-router.post('add', function (req, res) {
-  // TODO: Add a new employee
-});
+router.post('/add', function (req, res) {
+  var firstName = req.body.user.firstName;
+  var lastName = req.body.user.lastName;
+  var loginName = req.body.user.loginName;
+  var password = req.body.user.password;
+  var department = req.body.user.department;
+  var type = req.body.user.employeeType;
+  var wage = req.body.user.wage;
+
+  var userId = 0;
+
+  var query = "INSERT INTO users (first_name, last_name, login_name, login_password, department_id, user_type_id) VALUES ('" + firstName + "','" + lastName + "','" + loginName  + "','" + password  + "'," + department  + "," + type + ");";
+
+  mysqlDB.query(query, function (error, result) {
+    if (error) {
+      res.send(error)
+    }
+    
+    userId = result.insertedId
+  })
+
+  mysqlDB.query("INSERT INTO user_wage (user_id, wage) VALUES (" + userId  + "," + wage + ")", function (error, result) {
+    res.send(result)
+  })
+})
 
 module.exports = router;

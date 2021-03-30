@@ -18,6 +18,11 @@ export default {
       menuKey: 1,
     }
   },
+  created() {
+    if (!this.user) {
+      this.$router.replace({name: 'Home'})
+    }
+  },
   methods: {
     login(user) {
       this.user = user
@@ -26,6 +31,7 @@ export default {
     logout() {
       this.user = null
       this.menuKey++
+      this.$router.push({name: 'Home'})
     }
   },
 }
