@@ -2,7 +2,7 @@
   <div v-if="user">
     <p class="applicationDescription">Welcome to TaskMaster! Here you can <br> enter your hours and manage your time <br> off requests. You currently have <br> employee privledges. </p>
 
-    Your current status is '{{status}}'
+    <label>Your current status is '{{status}}'</label>
 
     <button v-if="status === 'Out'" @click="punch('shift')">In Shift</button>
     <button v-if="status === 'In'" @click="punch('shift')">Out Shift</button>
@@ -76,9 +76,19 @@ export default {
 </script>
 
 <style scoped>
+
 .applicationDescription {
-  text-align: center;
-  font-size: 20px;
-  margin-top: 40px;
+	text-align: center;
+	font-size: 20px;
+	margin: 40px;
 }
+
+label {
+	margin: 0px 10px 0px 20px;
+}
+
+button {
+	margin-bottom: 10px;
+}
+
 </style>
