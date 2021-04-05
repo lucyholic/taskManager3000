@@ -63,7 +63,7 @@ export default {
   overflow: hidden;
   border: 2px solid black;
   border-radius: 20px;
-  margin: 30px 10px 0px 10px;
+  margin: 30px 10px 10px 10px;
 }
 
 .topnav .navLink {
