@@ -1,13 +1,16 @@
 <template>
   <div>
-    <span class="title">TaskMaster</span>
+    <img src='../assets/TaskMaster_Logo.png'>
     <button v-if="user" @click="logout" class="signOut">Sign Out</button>
     <span v-if="user" class="userName">{{user.first_name}} ({{user.department}})</span>
     <div class="topnav">
       <nav>
         <router-link class="navLink" to="/">Home</router-link>
         <router-link v-if="user" class="navLink" to="/timeSummary">Time Summary</router-link>
-        <router-link v-if="user" class="navLink" to="/timeOff">Manage Time Off</router-link>
+        
+        <router-link v-if="user && user.type_id !== 2" class="navLink" to="/timeOff">Manage Time Off</router-link>
+        <router-link v-if="user && user.type_id === 2" class="navLink" to="/manageTimeOff">Manage Time Off</router-link>
+        
         <router-link v-if="user && user.type_id === 1" class="navLink" to="/addUser">Admin Menu</router-link>
         <router-link v-if="user && user.type_id === 2" class="navLink" to="/">Manager Menu</router-link>
         <router-link v-if="user && user.department_id === 1" class="navLink" to="/">HR Menu</router-link>
@@ -38,10 +41,6 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  text-align: left;
-  font-size: 24px;
-}
 .userName {
   float:right;
   margin-right: 10px;
