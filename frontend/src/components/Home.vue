@@ -9,8 +9,9 @@
         <label for="password">Password:</label>
         <input type="text" v-model="password" name="password">
       </div>
-      <button @click="login">Login</button>
+	  
       <div class="error">{{errorMsg}}</div>
+      <button @click="login">Login</button>
     </div>
     <div v-else>
       <dashboard :user="user"></dashboard>
@@ -66,5 +67,25 @@ export default {
 </script>
 
 <style scoped>
+
+label {
+	margin-left: 20px;
+}
+
+input{	
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+.error {
+	color: red;
+	margin-top: 5px;
+	margin-left: 20px;
+	font-size: 15px;
+}
+
+button {
+	margin: 10px 20px;
+}
 
 </style>

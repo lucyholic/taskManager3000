@@ -43,11 +43,17 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 30px;
-  margin-left: 30px;
+  background-color: #F3F8F2;
 }
+
+body {
+	border: 2px solid black;
+	background-color: #3581B8;
+	margin: 20px 20px 0px 20px;
+}
+
 .pageTitle {
-    margin-top: 40px;
+    margin-top: 20px;
     text-align: center;
 }
 
@@ -55,6 +61,7 @@ button {
   padding:10px;
   border:none;
   color:#fff;
+  background-color: #FCB07E;
   font-weight:600;
   border-radius:7px;
   width: 100px;
@@ -70,5 +77,4 @@ input {
 input:focus {
   outline-width: 0;
 }
-
 </style>

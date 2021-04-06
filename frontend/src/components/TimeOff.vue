@@ -96,6 +96,11 @@ export default {
 </script>
 
 <style scoped>
+
+  .employeeManageTimeOff {
+	padding-bottom: 20px;
+  }
+
   .timeOffTable {
       border-collapse: collapse;
       min-width: 1000px;
@@ -129,7 +134,7 @@ export default {
   .requestTimeOff {
     display:block;
     margin-top: 20px;
-    background-color: blue;
+    background-color: FCB07E;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -139,4 +144,9 @@ export default {
   .timeOffActive {
     background-color: lightgreen;
   }
+  
+  tbody {
+	  background-color: white;
+  }
+ 
 </style>

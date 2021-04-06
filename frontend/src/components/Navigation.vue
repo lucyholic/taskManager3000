@@ -41,20 +41,31 @@ export default {
 </script>
 
 <style scoped>
+.title {
+	text-align: left;
+	font-size: 24px;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
 .userName {
   float:right;
+  margin-top: 20px;
   margin-right: 10px;
 }
+
 .signOut {
   float:right;
-  margin-right:30px;
+  margin-top: 10px;
+  margin-right: 10px;
 }
 
 .topnav {
-  background-color: #d3d3d3;
+  background-color: #EBE9E9;
   overflow: hidden;
-  margin-top: 20px;
-  margin-right: 30px;
+  border: 2px solid black;
+  border-radius: 20px;
+  margin: 30px 10px 10px 10px;
 }
 
 .topnav .navLink {
