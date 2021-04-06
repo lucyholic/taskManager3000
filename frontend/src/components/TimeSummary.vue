@@ -8,7 +8,7 @@
       <input disabled type="text" v-model="user.department">
     </div>
 
-    <div>
+    <div class="timeStamps">
       <div v-for="el in entries" :key="el.time_log_id">{{el.type}}: {{el.time_stamp}}</div>
     </div>
 
@@ -77,22 +77,34 @@ export default {
 </script>
 
 <style scoped>
+
   .userData {
-    text-align: center;
-    margin-top: 40px;
+	text-align: center;
+    margin: 20px 0px 20px 0px;
   }
+  
   .userData label {
     margin-right: 20px;
   }
+  
   .userData input {
     margin-right: 50px;
+	color: black;
+	background-color: #EBE9E9;
+	border: 1px solid black;
   }
+  
+  .timeStamps div {
+    padding: 0px 0px 20px 20px;
+  }
+  
   .chevron {
     background-color: white;
     border: none;
     margin-left: 10px;
     margin-right: 10px;
   }
+  
   .center {
     margin: 0;
     position: absolute;
@@ -135,4 +147,5 @@ export default {
   .reset {
     background-color: #898896
   }
+  
 </style>
