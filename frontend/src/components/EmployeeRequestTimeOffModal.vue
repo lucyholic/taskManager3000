@@ -36,22 +36,24 @@ export default {
             reason: "",
         }
     },
+    props: {
+        userId: Number
+    },
     methods: {
         hide () {
             this.$modal.hide('requestTimeOff');
             this.$emit('unmountRequestTimeOffModal');
         },
         submitRequestTimeOff(){
-            console.log('test')
             this.$http.post('/api/timeOff/addTimeOff', {
+                userId: this.userId,
                 timeOffStartDate: this.startDate, 
                 timeOffEndDate: this.endDate,
                 timeOffType: this.type,
                 timeOffReason: this.reason
-            }).then((res) => {
+            }).then(() => {
                 this.$emit('unmountRequestTimeOffModal');
-                console.log("tste")
-                this.$emit('showPostTimeOffResult', res.data)
+                this.$emit('refreshAllTimeOff')
             })
         }
     },

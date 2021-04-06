@@ -13,29 +13,22 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-            <td>Vacation</td>
-            <td>February 20th, 2021</td>
-            <td>March 20th, 2021</td>
-            <td>February 10th, 2021</td>
-            <td>Visiting family in Europe</td>
-            <td>In Progress</td>
+        <tr v-for="timeOff in allTimeOff" :key="timeOff.time_off_id" v-bind:class="{timeOffActive: timeOffActive(timeOff)}">
+          <td>{{timeOff.type}}</td>
+          <td>{{getSimplifiedDate(timeOff.start_time)}}</td>
+          <td>{{getSimplifiedDate(timeOff.end_time)}}</td>
+          <td>{{getSimplifiedDate(timeOff.requested_on)}}</td>
+          <td>{{timeOff.reason}}</td>
+          <td v-if="timeOffActive(timeOff)">In Progress</td>
+          <td v-else-if="timeOffPending(timeOff)">Pending</td>
+          <td v-else><button class="deleteTimeOff" v-on:click="deleteTimeOff(timeOff.time_off_id)"><img src='../assets/deleteIcon.png'></button></td>
         </tr>
-          <tr>
-            <td>Vacation</td>
-            <td>April 15th, 2021</td>
-            <td>May 10th, 2021</td>
-            <td>February 11th, 2021</td>
-            <td>Relaxation</td>
-            <td><button class="deleteTimeOff"><img src='../assets/deleteIcon.png'></button></td>
-          </tr>
       </tbody>
     </table>
     <button class="requestTimeOff" v-on:click="setRequestTimeOffModalToOpen()">Request Time Off</button>
     <div v-if="modalOpen">
-      <EmployeeRequestTimeOffModal v-on:unmountRequestTimeOffModal="setRequestTimeOffModalToClose()" v-on:showPostTimeOffResult="modifyPostResult($event)"/>
+      <EmployeeRequestTimeOffModal v-bind:userId="user.user_id" v-on:unmountRequestTimeOffModal="setRequestTimeOffModalToClose()" v-on:refreshAllTimeOff="getTimeOff()"/>
     </div>
-    <div>{{postResult}}</div>
   </div>
 </template>
 
@@ -47,7 +40,7 @@ export default {
   data: function () {
     return {
       modalOpen: false,
-      postResult: ""
+      allTimeOff: [],
     }
   },
   components: {
@@ -66,10 +59,39 @@ export default {
     setRequestTimeOffModalToClose() {
       this.modalOpen = false;
     },
-    modifyPostResult(resultData) {
-      this.postResult = `Posted timeoff request to server and got back: ${resultData.startDate}, ${resultData.endDate}, ${resultData.type}, ${resultData.reason}`
+    getTimeOff() {
+      this.$http.post('/api/timeOff/retrieveTimeOff', {userId: this.user.user_id})
+      .then((res) => {
+        this.allTimeOff = res.data
+      })
+    },
+    getSimplifiedDate(dateString) {
+      let date = new Date(dateString)
+      return date.toDateString()
+    },
+    timeOffActive(timeOff) {
+      let startDate = new Date(timeOff.start_time).getTime()
+      let endDate = new Date(timeOff.end_time).getTime()
+      let currentDate = new Date().getTime()
+
+      return currentDate >= startDate && currentDate <= endDate && timeOff.approved_on !== null
+    },
+    timeOffPending(timeOff) {
+      let startDate = new Date(timeOff.start_time).getTime()
+      let currentDate = new Date().getTime()
+
+      return currentDate < startDate && timeOff.approved_on !== null
+    },
+    deleteTimeOff(timeOffId) {
+      this.$http.post('/api/timeOff/deleteTimeOff', {timeOffId: timeOffId})
+      .then(() => {
+        this.getTimeOff()
+      })
     }
   },
+  mounted () {
+    this.getTimeOff()
+  }
 }
 </script>
 
@@ -118,9 +140,13 @@ export default {
     margin-right: auto;
     width: 100px;
   }
-  
-  tbody {
-	background-color: white;
+
+  .timeOffActive {
+    background-color: lightgreen;
   }
   
+  tbody {
+	  background-color: white;
+  }
+ 
 </style>
