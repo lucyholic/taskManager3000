@@ -1,6 +1,8 @@
 <template>
   <div>
-    <span class="title">TaskMaster</span>
+	<img class="title" src='../assets/taskMasterLogo.png'
+	width="250"
+	height="50">
     <button v-if="user" @click="logout" class="signOut">Sign Out</button>
     <span v-if="user" class="userName">{{user.first_name}} ({{user.department}})</span>
     <div class="topnav">
@@ -40,8 +42,6 @@ export default {
 <style scoped>
 
 .title {
-	text-align: left;
-	font-size: 24px;
 	margin-top: 10px;
 	margin-left: 10px;
 }
@@ -63,7 +63,7 @@ export default {
   overflow: hidden;
   border: 2px solid black;
   border-radius: 20px;
-  margin: 30px 10px 10px 10px;
+  margin: 10px 10px 10px 10px;
 }
 
 .topnav .navLink {
