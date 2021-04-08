@@ -80,7 +80,7 @@ export default {
 
   .userData {
 	text-align: center;
-    margin: 20px 0px 20px 0px;
+    padding: 20px 0px 20px 0px;
   }
   
   .userData label {
