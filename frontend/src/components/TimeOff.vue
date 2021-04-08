@@ -29,6 +29,10 @@
     <div v-if="modalOpen">
       <EmployeeRequestTimeOffModal v-bind:userId="user.user_id" v-on:unmountRequestTimeOffModal="setRequestTimeOffModalToClose()" v-on:refreshAllTimeOff="getTimeOff()"/>
     </div>
+    <div>{{postResult}}</div>
+	<footer>
+		<p class="copyright">Copyright 2021 Team 10</p>
+	</footer>
   </div>
 </template>
 
@@ -96,10 +100,6 @@ export default {
 </script>
 
 <style scoped>
-
-  .employeeManageTimeOff {
-	padding-bottom: 20px;
-  }
 
   .timeOffTable {
       border-collapse: collapse;

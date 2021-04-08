@@ -1,41 +1,46 @@
 <template>
 <div>
-  <div>Add User</div>
-  <div>
-    <label for="firstName">First Name: </label>
-    <input type="text" id="firstName" v-model="newUser.firstName">
-  </div>
-  <div>
-    <label for="lastName">Last Name: </label>
-    <input type="text" id="lastName" v-model="newUser.lastName">
-  </div>
-  <div>
-    <label for="loginName">Login Name: </label>
-    <input type="text" id="loginName" v-model="newUser.loginName">
-    <div v-show="loginNameError !== ''">{{loginNameError}}</div>
-  </div>
-  <div>
-    <label for="password">Password: </label>
-    <input type="text" id="password" v-model="newUser.password">
-  </div>
-  <div>
-    <label for="department">Department: </label>
-    <select id="department" v-model="newUser.department">
-      <option v-for="el in departments" :key="el.department_id" :value="el.department_id" :label="el.department"></option>
-    </select>
-  </div>
-  <div>
-    <label for="employeeType">Employee Type: </label>
-    <select id="employeeType" v-model="newUser.employeeType">
-      <option v-for="el in employeeTypes" :key="el.type_id" :value="el.type_id" :label="el.type"></option>
-    </select>
-  </div>
-  <div>
-    <label for="wage">Wage: </label>
-    <input type="text" id="wage" v-model="newUser.wage">
-  </div>
-  <button :disabled="disableButton" @click="saveUser">Add</button>
-  <div v-show="successMessage !== ''"> {{successMessage}} </div>
+	<div class="newUserForm">
+	  <div>Add User</div>
+	  <div>
+		<label for="firstName">First Name: </label>
+		<input type="text" id="firstName" v-model="newUser.firstName">
+	  </div>
+	  <div>
+		<label for="lastName">Last Name: </label>
+		<input type="text" id="lastName" v-model="newUser.lastName">
+	  </div>
+	  <div>
+		<label for="loginName">Login Name: </label>
+		<input type="text" id="loginName" v-model="newUser.loginName">
+		<div v-show="loginNameError !== ''">{{loginNameError}}</div>
+	  </div>
+	  <div>
+		<label for="password">Password: </label>
+		<input type="text" id="password" v-model="newUser.password">
+	  </div>
+	  <div>
+		<label for="department">Department: </label>
+		<select id="department" v-model="newUser.department">
+		  <option v-for="el in departments" :key="el.department_id" :value="el.department_id" :label="el.department"></option>
+		</select>
+	  </div>
+	  <div>
+		<label for="employeeType">Employee Type: </label>
+		<select id="employeeType" v-model="newUser.employeeType">
+		  <option v-for="el in employeeTypes" :key="el.type_id" :value="el.type_id" :label="el.type"></option>
+		</select>
+	  </div>
+	  <div>
+		<label for="wage">Wage: </label>
+		<input type="text" id="wage" v-model="newUser.wage">
+	  </div>
+	  <button :disabled="disableButton" @click="saveUser">Add</button>
+	  <div v-show="successMessage !== ''"> {{successMessage}} </div>
+	</div>
+	<footer>
+		<p class="copyright">Copyright 2021 Team 10</p>
+	</footer>
 </div>
 </template>
 
@@ -141,5 +146,22 @@ export default {
 </script>
 
 <style scoped>
+
+.newUserForm {
+	text-align: center;
+	margin: 10px 0px 20px 20px;
+}
+
+input {
+	margin: 10px;
+}
+
+select {
+	margin: 10px;
+}
+
+button {
+	margin-top: 10px;
+}
 
 </style>

@@ -13,6 +13,9 @@
     <button v-if="status === 'Break'" @click="punch('break')">Out Break</button>
     <button v-if="status === 'In'" @click="punch('lunch')">In Lunch</button>
     <button v-if="status === 'Lunch'" @click="punch('lunch')">Out Lunch</button>
+	<footer>
+		<p class="copyright">Copyright 2021 Team 10</p>
+	</footer>
   </div>
 </template>
 
