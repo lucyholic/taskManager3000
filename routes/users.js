@@ -12,10 +12,14 @@ router.get('/', function(req, res) {
 router.post('/login', function (req, res) {
   var loginName = req.body.loginName;
   var password = req.body.password;
-  mysqlDB.query("SELECT * FROM users "
+  mysqlDB.query("SELECT *, user_types.type AS user_type, user_types.type_id AS user_type_id, " 
+    + "time_log_types.type AS time_log_type, time_log_types.type_id AS time_log_type_id, time_logs.time_log_id FROM users "
     + "JOIN user_departments ON users.department_id = user_departments.department_id "
     + "JOIN user_types ON users.user_type_id = user_types.type_id "
+    + "JOIN time_logs ON users.user_id = time_logs.user_id "
+    + "JOIN time_log_types ON time_logs.type_id = time_log_types.type_id "
     + "WHERE login_name = '" + loginName + "' AND login_password = '" + password + "' "
+    + "ORDER BY time_logs.time_log_id DESC "
     + "LIMIT 1", function (error, rows, fields) {
     if (error || !rows[0]) {
       res.send(false)
@@ -36,7 +40,8 @@ router.post('/add', function (req, res) {
 
   var userId = 0;
 
-  var query = "INSERT INTO users (first_name, last_name, login_name, login_password, department_id, user_type_id) VALUES ('" + firstName + "','" + lastName + "','" + loginName  + "','" + password  + "'," + department  + "," + type + ");";
+  var query = "INSERT INTO users (first_name, last_name, login_name, login_password, department_id, user_type_id) " 
+    + "VALUES ('" + firstName + "','" + lastName + "','" + loginName  + "','" + password  + "'," + department  + "," + type + ");";
 
   mysqlDB.query(query, function (error, result) {
     if (error) {

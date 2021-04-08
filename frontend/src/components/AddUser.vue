@@ -102,7 +102,7 @@ export default {
     }
   },
   created() {
-    if (this.user.type !== 'Administrator') {
+    if (this.user.user_type !== 'Administrator') {
       this.$router.replace({name: 'Home'})
     }
     this.getDepartments()

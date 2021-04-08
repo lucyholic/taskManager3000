@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import TimeSummary from '@/components/TimeSummary'
 import TimeOff from '@/components/TimeOff'
 import AddUser from '@/components/AddUser'
+import ManageTimeOff from '@/components/ManageTimeOff'
 
 Vue.use(Router)
 
@@ -34,5 +35,11 @@ export default new Router({
       component: AddUser,
       props: true
     },
+    {
+      path: '/manageTimeOff',
+      name: 'ManageTimeOff',
+      component: ManageTimeOff,
+      props: true
+    }
   ]
 })
