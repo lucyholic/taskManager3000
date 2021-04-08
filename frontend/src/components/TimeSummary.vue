@@ -29,6 +29,9 @@
         <input disabled />
       </div>
     </form> -->
+	<footer>
+		<p class="copyright">Copyright 2021 Team 10</p>
+	</footer>
   </div>
 </template>
 

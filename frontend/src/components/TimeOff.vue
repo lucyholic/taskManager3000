@@ -36,6 +36,9 @@
       <EmployeeRequestTimeOffModal v-on:unmountRequestTimeOffModal="setRequestTimeOffModalToClose()" v-on:showPostTimeOffResult="modifyPostResult($event)"/>
     </div>
     <div>{{postResult}}</div>
+	<footer>
+		<p class="copyright">Copyright 2021 Team 10</p>
+	</footer>
   </div>
 </template>
 
@@ -74,10 +77,6 @@ export default {
 </script>
 
 <style scoped>
-
-  .employeeManageTimeOff {
-	padding-bottom: 20px;
-  }
 
   .timeOffTable {
       border-collapse: collapse;

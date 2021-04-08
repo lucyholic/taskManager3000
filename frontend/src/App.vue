@@ -49,7 +49,7 @@ export default {
 body {
 	border: 2px solid black;
 	background-color: #3581B8;
-	margin: 20px 20px 0px 20px;
+	margin: 20px 0px 0px 20px;
 }
 
 .pageTitle {
@@ -77,4 +77,12 @@ input {
 input:focus {
   outline-width: 0;
 }
+
+.copyright {
+	text-align: right;
+	font-size: 14px;
+	padding: 10px 5px 5px 0px;
+	margin: 0px;
+}
+
 </style>
