@@ -4,10 +4,30 @@ var mysqlDB = require('../connection');
 
 /* GET users listing. */
 router.get('/', function(req, res) {
-  mysqlDB.query("SELECT login_name FROM users", function (error, rows, fields) {
-    res.send(rows)
+  mysqlDB.query("SELECT * FROM users "
+    + "JOIN user_departments ON users.department_id = user_departments.department_id "
+    + "JOIN user_types ON users.user_type_id = user_types.type_id;", function (error, rows, fields) {
+      if (error) {
+        res.send(error)
+      }
+      
+      res.send(rows)
   })
 });
+
+router.get('/:userId', function (req, res) {
+  var userId = req.params.userId;
+  mysqlDB.query("SELECT * FROM users "
+    + "JOIN user_departments ON users.department_id = user_departments.department_id "
+    + "JOIN user_types ON users.user_type_id = user_types.type_id "
+    + "WHERE users.user_id = " + userId, function (error, rows, fields) {
+      if (error) {
+        res.send(error)
+      }
+      
+      res.send(rows)
+    })
+})
 
 router.post('/login', function (req, res) {
   var loginName = req.body.loginName;
@@ -16,8 +36,8 @@ router.post('/login', function (req, res) {
     + "time_log_types.type AS time_log_type, time_log_types.type_id AS time_log_type_id, time_logs.time_log_id FROM users "
     + "JOIN user_departments ON users.department_id = user_departments.department_id "
     + "JOIN user_types ON users.user_type_id = user_types.type_id "
-    + "JOIN time_logs ON users.user_id = time_logs.user_id "
-    + "JOIN time_log_types ON time_logs.type_id = time_log_types.type_id "
+    + "LEFT JOIN time_logs ON users.user_id = time_logs.user_id "
+    + "LEFT JOIN time_log_types ON time_logs.type_id = time_log_types.type_id "
     + "WHERE login_name = '" + loginName + "' AND login_password = '" + password + "' "
     + "ORDER BY time_logs.time_log_id DESC "
     + "LIMIT 1", function (error, rows, fields) {
@@ -30,28 +50,45 @@ router.post('/login', function (req, res) {
 });
 
 router.post('/add', function (req, res) {
-  var firstName = req.body.user.firstName;
-  var lastName = req.body.user.lastName;
-  var loginName = req.body.user.loginName;
-  var password = req.body.user.password;
-  var department = req.body.user.department;
-  var type = req.body.user.employeeType;
+  var firstName = req.body.user.first_name;
+  var lastName = req.body.user.last_name;
+  var loginName = req.body.user.login_name;
+  var password = req.body.user.login_password;
+  var department = req.body.user.department_id;
+  var type = req.body.user.type_id;
   var wage = req.body.user.wage;
 
-  var userId = 0;
-
-  var query = "INSERT INTO users (first_name, last_name, login_name, login_password, department_id, user_type_id) " 
-    + "VALUES ('" + firstName + "','" + lastName + "','" + loginName  + "','" + password  + "'," + department  + "," + type + ");";
+  var query = "INSERT INTO users (first_name, last_name, login_name, login_password, department_id, user_type_id, wage) " 
+    + "VALUES ('" + firstName + "','" + lastName + "','" + loginName  + "','" + password  + "'," + department  + "," + type + ", " + wage + ");";
 
   mysqlDB.query(query, function (error, result) {
     if (error) {
       res.send(error)
     }
     
-    userId = result.insertedId
+    res.send(result)
   })
+})
 
-  mysqlDB.query("INSERT INTO user_wage (user_id, wage) VALUES (" + userId  + "," + wage + ")", function (error, result) {
+router.put('/:userId', function(req, res) {
+  var userId = req.params.userId;
+  var firstName = req.body.user.first_name;
+  var lastName = req.body.user.last_name;
+  var loginName = req.body.user.login_name;
+  var password = req.body.user.login_password;
+  var department = req.body.user.department_id;
+  var type = req.body.user.type_id;
+  var wage = req.body.user.wage;
+
+  var query = "UPDATE users SET first_name = '" + firstName + "', last_name = '" + lastName + "', login_name = '" + loginName + "', "
+    + "login_password = '" + password + "', department_id = " + department + ", user_type_id = " + type + ", wage = " + wage
+    + " WHERE user_id = " + userId + ";";
+
+  mysqlDB.query(query, function (error, result) {
+    if (error) {
+      res.send(error)
+    }
+    
     res.send(result)
   })
 })

@@ -11,9 +11,6 @@
     <div class="timeStamps">
       <div v-for="el in entries" :key="el.time_log_id">{{el.type}}: {{el.time_stamp}}</div>
     </div>
-
-
-
     <!-- <div class="center">
       <button class="chevron"><img src="../assets/leftChevron.png" /></button>
       <span class="weekRange">{{dateStart.toDateString()}} to {{dateEnd.toDateString()}}</span>
@@ -29,9 +26,6 @@
         <input disabled />
       </div>
     </form> -->
-	<footer>
-		<p class="copyright">Copyright 2021 Team 10</p>
-	</footer>
   </div>
 </template>
 
