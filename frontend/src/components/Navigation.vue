@@ -12,6 +12,7 @@
         <router-link v-if="user" class="navLink" to="/timeOff">My Time Off</router-link>
         <router-link v-if="user && user.user_type_id === 2" class="navLink" to="/manageTimeOff">Manage Time Off</router-link>
         <router-link v-if="user && user.user_type_id === 1" class="navLink" to="/manageUsers">Manage Employees</router-link>
+        <router-link v-if="user && user.user_type_id !== 3" class="navLink" to="/generatePaystub">Generate Paystub</router-link>
       </nav>
     </div>
   </div>

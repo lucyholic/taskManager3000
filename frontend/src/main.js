@@ -5,11 +5,14 @@ import App from './App'
 import router from './router'
 import VModal from 'vue-js-modal'
 import axios from 'axios'
+import Print from 'vue-print-nb'
 
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 Vue.use(VModal)
+
+Vue.use(Print);
 
 /* eslint-disable no-new */
 new Vue({

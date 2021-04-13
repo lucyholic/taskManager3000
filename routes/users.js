@@ -93,6 +93,19 @@ router.put('/:userId', function(req, res) {
   })
 })
 
+router.get('/getEmployees', function(req, res) {
+  mysqlDB.query("SELECT user_id, first_name, last_name, department, wage"
+  + " FROM users"
+  + " JOIN user_types"
+  + " ON user_type_id = type_id"
+  + " JOIN user_departments"
+  + " USING (department_id)"
+  + " WHERE type_id = 3", 
+  function (error, rows, fields) {
+    res.send(rows)
+  })
+});
+
 router.get('/test', function (req, res) {
   res.send('Test Users');
 })
