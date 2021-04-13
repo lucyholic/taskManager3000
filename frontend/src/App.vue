@@ -55,7 +55,7 @@ export default {
 body {
 	border: 2px solid black;
 	background-color: #3581B8;
-	margin: 20px 0px 0px 20px;
+	margin: 20px 20px 0px 20px;
 }
 
 .pageTitle {
