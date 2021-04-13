@@ -14,6 +14,9 @@
 </template>
 
 <script>
+
+import moment from 'moment'
+
 export default {
   name: "Dashboard",
   props: {
@@ -27,7 +30,34 @@ export default {
       status: 'Out',
     }
   },
+  mounted() {
+    let yearNumber = moment().year()
+    this.weekNumber = moment().isoWeek()
+    let dayNumber = moment().date()
+
+    this.$http.post('/api/timeEntry/currentStatus', {userId: this.user.user_id, yearNumber: yearNumber, weekNumber: this.weekNumber, dayNumber: dayNumber})
+    .then((res) => {
+        this.status = this.statusConversion(res.data.currentStatus)
+        console.log(res.data.currentStatus, this.status)
+    })
+  },
   methods: {
+    statusConversion(currentStatus) {
+      switch(currentStatus) {
+        case "In Shift":
+          return "In"
+        case "Out Shift":
+          return "Out"
+        case "In Break":
+          return "Break"
+        case "Out Break":
+          return "In"
+        case "In Lunch":
+          return "Lunch"
+        case "Out Lunch":
+          return "In"
+      }
+    },
     punch(type) {
       let afterStatus = ''
       let typeId = 0

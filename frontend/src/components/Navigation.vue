@@ -10,7 +10,8 @@
         
         <router-link v-if="user && user.type_id !== 2" class="navLink" to="/timeOff">Manage Time Off</router-link>
         <router-link v-if="user && user.type_id === 2" class="navLink" to="/manageTimeOff">Manage Time Off</router-link>
-        
+        <router-link v-if="user && user.type_id !== 3" class="navLink" to="/generatePaystub">Generate Paystub</router-link>
+
         <router-link v-if="user && user.type_id === 1" class="navLink" to="/addUser">Admin Menu</router-link>
         <router-link v-if="user && user.type_id === 2" class="navLink" to="/">Manager Menu</router-link>
         <router-link v-if="user && user.department_id === 1" class="navLink" to="/">HR Menu</router-link>

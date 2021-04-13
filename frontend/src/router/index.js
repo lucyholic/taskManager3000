@@ -5,6 +5,7 @@ import TimeSummary from '@/components/TimeSummary'
 import TimeOff from '@/components/TimeOff'
 import AddUser from '@/components/AddUser'
 import ManageTimeOff from '@/components/ManageTimeOff'
+import GeneratePaystub from '@/components/GeneratePaystub'
 
 Vue.use(Router)
 
@@ -39,6 +40,12 @@ export default new Router({
       path: '/manageTimeOff',
       name: 'ManageTimeOff',
       component: ManageTimeOff,
+      props: true
+    },
+    {
+      path: '/generatePaystub',
+      name: 'GeneratePaystub',
+      component: GeneratePaystub,
       props: true
     }
   ]
