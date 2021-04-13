@@ -64,27 +64,33 @@ export default {
           if (this.status === 'In') {
             typeId = 2
             afterStatus = 'Out'
+            this.$emit('punch', 'Out Shift')
           } else {
             typeId = 1
             afterStatus = 'In'
+            this.$emit('punch', 'In Shift')
           }
           break;
         case "lunch":
           if (this.status === 'In') {
             typeId = 5
             afterStatus = 'Lunch'
+            this.$emit('punch', 'In Lunch')
           } else {
             typeId = 6
             afterStatus = 'In'
+            this.$emit('punch', 'Out Lunch')
           }
           break;
         case "break":
           if (this.status === 'In') {
             typeId = 3
             afterStatus = 'Break'
+            this.$emit('punch', 'In Break')
           } else {
             typeId = 4
             afterStatus = 'In'
+            this.$emit('punch', 'Out Break')
           }
           break;
         default:

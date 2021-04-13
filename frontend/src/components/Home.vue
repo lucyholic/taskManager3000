@@ -14,7 +14,7 @@
       <button @click="login">Login</button>
     </div>
     <div v-else>
-      <dashboard :user="user"></dashboard>
+      <dashboard :user="user" @punch="punch"></dashboard>
     </div>
   </div>
 </template>
@@ -61,6 +61,9 @@ export default {
           this.password = ''
         }
       })
+    },
+    punch(status) {
+      this.$emit('punch', status)
     }
   },
 }

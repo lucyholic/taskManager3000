@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <navigation :user="user" :key="menuKey" @logout="logout"></navigation>
-    <router-view :user="user" @login="login"></router-view>
+    <router-view :user="user" @login="login" @punch="punch"></router-view>
     <footer>
       <p class="copyright">Copyright 2021 Team 10</p>
     </footer>
@@ -35,6 +35,9 @@ export default {
       this.user = null
       this.menuKey++
       this.$router.push({name: 'Home'})
+    },
+    punch(status) {
+      this.user.time_log_type = status
     }
   },
 }

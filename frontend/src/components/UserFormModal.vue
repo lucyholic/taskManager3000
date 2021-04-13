@@ -65,21 +65,25 @@ export default {
       departments: [],
       employeeTypes: [],
       userNames: [],
+      computedLoginName: '',
     }
   },
   watch: {
     computedLoginName(val) {
       this.userData.login_name = val
     },
+    "user.first_name": function(val) {
+      if (val !== '') {
+        this.getLoginName()
+      }
+    },
+    "user.last_name": function(val) {
+      if (val !== '') {
+        this.getLoginName()
+      }
+    }
   },
   computed: {
-    computedLoginName() {
-      let output = ''
-      if (this.userData.first_name !== '' && this.userData.last_name !== '') {
-        output = (this.userData.first_name.substring(0, 1) + this.userData.last_name).toLowerCase()
-      }
-      return output
-    },
     disableButton() {
       const duplicatedLoginName = this.userNames.find(el => el.login_name === this.userData.login_name && el.user_id !== this.userId)
 
@@ -103,6 +107,8 @@ export default {
     } else {
       this.title = "Update User"
     }
+
+    this.computedLoginName = this.userData.login_name
 
     this.getDepartments()
     this.getEmployeeTypes()
@@ -154,6 +160,13 @@ export default {
     hide() {
       this.$modal.hide('userForm')
       this.$emit('close')
+    },
+    getLoginName() {
+      let output = ''
+      if (this.userData.first_name !== '' && this.userData.last_name !== '') {
+        output = (this.userData.first_name.substring(0, 1) + this.userData.last_name).toLowerCase()
+      }
+      this.computedLoginName = output
     }
   },
 }
