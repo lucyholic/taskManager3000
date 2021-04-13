@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import TimeSummary from '@/components/TimeSummary'
 import TimeOff from '@/components/TimeOff'
-import AddUser from '@/components/AddUser'
+import ManageUsers from '@/components/ManageUsers'
 import ManageTimeOff from '@/components/ManageTimeOff'
 import GeneratePaystub from '@/components/GeneratePaystub'
 
@@ -31,9 +31,9 @@ export default new Router({
       props: true
     },
     {
-      path: '/addUser',
-      name: 'addUser',
-      component: AddUser,
+      path: '/manageUsers',
+      name: 'manageUsers',
+      component: ManageUsers,
       props: true
     },
     {

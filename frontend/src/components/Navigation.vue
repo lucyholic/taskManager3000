@@ -1,20 +1,18 @@
 <template>
   <div>
-    <img src='../assets/TaskMaster_Logo.png'>
+	<img class="title" src='../assets/taskMasterLogo.png'
+	width="250"
+	height="50">
     <button v-if="user" @click="logout" class="signOut">Sign Out</button>
     <span v-if="user" class="userName">{{user.first_name}} ({{user.department}})</span>
     <div class="topnav">
       <nav>
         <router-link class="navLink" to="/">Home</router-link>
         <router-link v-if="user" class="navLink" to="/timeSummary">Time Summary</router-link>
-        
-        <router-link v-if="user && user.type_id !== 2" class="navLink" to="/timeOff">Manage Time Off</router-link>
-        <router-link v-if="user && user.type_id === 2" class="navLink" to="/manageTimeOff">Manage Time Off</router-link>
-        <router-link v-if="user && user.type_id !== 3" class="navLink" to="/generatePaystub">Generate Paystub</router-link>
-
-        <router-link v-if="user && user.type_id === 1" class="navLink" to="/addUser">Admin Menu</router-link>
-        <router-link v-if="user && user.type_id === 2" class="navLink" to="/">Manager Menu</router-link>
-        <router-link v-if="user && user.department_id === 1" class="navLink" to="/">HR Menu</router-link>
+        <router-link v-if="user" class="navLink" to="/timeOff">My Time Off</router-link>
+        <router-link v-if="user && user.user_type_id === 2" class="navLink" to="/manageTimeOff">Manage Time Off</router-link>
+        <router-link v-if="user && user.user_type_id === 1" class="navLink" to="/manageUsers">Manage Employees</router-link>
+        <router-link v-if="user && user.user_type_id !== 3" class="navLink" to="/generatePaystub">Generate Paystub</router-link>
       </nav>
     </div>
   </div>
@@ -43,8 +41,6 @@ export default {
 
 <style scoped>
 .title {
-	text-align: left;
-	font-size: 24px;
 	margin-top: 10px;
 	margin-left: 10px;
 }
@@ -66,7 +62,7 @@ export default {
   overflow: hidden;
   border: 2px solid black;
   border-radius: 20px;
-  margin: 30px 10px 10px 10px;
+  margin: 10px 10px 10px 10px;
 }
 
 .topnav .navLink {

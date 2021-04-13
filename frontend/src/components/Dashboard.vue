@@ -1,6 +1,9 @@
 <template>
   <div v-if="user">
-    <p class="applicationDescription">Welcome to TaskMaster! Here you can <br> enter your hours and manage your time <br> off requests. You currently have <br> employee privledges. </p>
+    <p class="applicationDescription">
+      Welcome to TaskMaster! Here you can enter your hours and manage your time off requests. 
+      You currently have {{user.user_type}} priviledges. 
+    </p>
 
     <label>Your current status is '{{status}}'</label>
 
@@ -30,6 +33,9 @@ export default {
       status: 'Out',
     }
   },
+  created() {
+    this.getStatus()
+  },
   mounted() {
     let yearNumber = moment().year()
     this.weekNumber = moment().isoWeek()
@@ -58,6 +64,28 @@ export default {
           return "In"
       }
     },
+    getStatus() {
+      if(this.user) {
+        switch(this.user.time_log_type) {
+          case "In Shift":
+          case "Out Break":
+          case "Out Lunch":
+            this.status = 'In'
+            break;
+          case "Out Shift":
+            this.status = "Out"
+            break;
+          case "In Break":
+            this.status = "Break"
+            break;
+          case "In Lunch":
+            this.status = "Lunch"
+            break;
+          default:
+            break;
+        }
+      }
+    },
     punch(type) {
       let afterStatus = ''
       let typeId = 0
@@ -66,27 +94,33 @@ export default {
           if (this.status === 'In') {
             typeId = 2
             afterStatus = 'Out'
+            this.$emit('punch', 'Out Shift')
           } else {
             typeId = 1
             afterStatus = 'In'
+            this.$emit('punch', 'In Shift')
           }
           break;
         case "lunch":
           if (this.status === 'In') {
             typeId = 5
             afterStatus = 'Lunch'
+            this.$emit('punch', 'In Lunch')
           } else {
             typeId = 6
             afterStatus = 'In'
+            this.$emit('punch', 'Out Lunch')
           }
           break;
         case "break":
           if (this.status === 'In') {
             typeId = 3
             afterStatus = 'Break'
+            this.$emit('punch', 'In Break')
           } else {
             typeId = 4
             afterStatus = 'In'
+            this.$emit('punch', 'Out Break')
           }
           break;
         default:

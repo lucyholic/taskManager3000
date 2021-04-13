@@ -9,12 +9,18 @@
       </select>
     </div>
 
-    <div v-if="user">
-      <div class="userData">
-        <label>Name:</label>
-        <input disabled type="text" v-model="fullName">
-        <label>Department:</label>
-        <input disabled type="text" v-model="department">
+    <div class="timeStamps">
+      <div v-for="el in entries" :key="el.time_log_id">{{el.type}}: {{el.time_stamp}}</div>
+    </div>
+    <!-- <div class="center">
+      <button class="chevron"><img src="../assets/leftChevron.png" /></button>
+      <span class="weekRange">{{dateStart.toDateString()}} to {{dateEnd.toDateString()}}</span>
+      <button class="chevron"><img src="../assets/rightChevron.png" /></button>
+    </div>
+    <form class="weekFields">
+      <div v-for="date in dateRange" :key="date.id">
+        <label>{{dayShortForms[date.getDay()]}} {{date.getDate()}}</label>
+        <input v-bind:name="dayShortForms[date.getDay()]"/>
       </div>
       <div class="center">
         <button class="chevron" v-on:click="getPreviousWeek()"><img src="../assets/leftChevron.png" /></button>
@@ -171,8 +177,8 @@ export default {
 <style scoped>
 
   .userData {
-	  text-align: center;
-    margin: 20px 0px 20px 0px;
+	text-align: center;
+    padding: 20px 0px 20px 0px;
   }
   
   .userData label {
