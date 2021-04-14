@@ -82,7 +82,7 @@ export default {
       let startDate = new Date(timeOff.start_time).getTime()
       let currentDate = new Date().getTime()
 
-      return currentDate < startDate && timeOff.approved_on !== null
+      return !(currentDate < startDate && timeOff.approved_on !== null)
     },
     deleteTimeOff(timeOffId) {
       this.$http.post('/api/timeOff/deleteTimeOff', {timeOffId: timeOffId})

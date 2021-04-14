@@ -108,7 +108,7 @@ export default {
       })
     },
     getEmployees() {
-      this.$http.get('/api/users/getEmployees')
+      this.$http.get('/api/users')
       .then(res => {
         let data = res.data
         this.employees = []

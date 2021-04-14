@@ -44,7 +44,6 @@ export default {
     this.$http.post('/api/timeEntry/currentStatus', {userId: this.user.user_id, yearNumber: yearNumber, weekNumber: this.weekNumber, dayNumber: dayNumber})
     .then((res) => {
         this.status = this.statusConversion(res.data.currentStatus)
-        console.log(res.data.currentStatus, this.status)
     })
   },
   methods: {

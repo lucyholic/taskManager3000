@@ -72,12 +72,12 @@ export default {
     computedLoginName(val) {
       this.userData.login_name = val
     },
-    "user.first_name": function(val) {
+    "userData.first_name": function(val) {
       if (val !== '') {
         this.getLoginName()
       }
     },
-    "user.last_name": function(val) {
+    "userData.last_name": function(val) {
       if (val !== '') {
         this.getLoginName()
       }

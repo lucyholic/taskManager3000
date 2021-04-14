@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 class="pageTitle">Time Summary</h2>
-    <div v-if="user && user.type_id !== 3">
+    <div v-if="user && user.user_type_id !== 3">
       <select class="employeeSelection" @change="refreshHours()" v-model="selectedEmployee">
         <option v-for="employee in employees" v-bind:value="employee.value" :key="employee.value">
           {{employee.text}}
@@ -9,34 +9,20 @@
       </select>
     </div>
 
-    <div class="timeStamps">
-      <div v-for="el in entries" :key="el.time_log_id">{{el.type}}: {{el.time_stamp}}</div>
+    <div :class="user && user.user_type_id !== 3 ? 'center' : 'center top'">
+      <button class="chevron" v-on:click="getPreviousWeek()"><img src="../assets/leftChevron.png" /></button>
+      <span class="weekRange">{{this.getStartDate(weekNumber)}} to {{this.getEndDate(weekNumber)}}</span>
+      <button class="chevron" v-on:click="getNextWeek()"><img src="../assets/rightChevron.png" /></button>
     </div>
-    <!-- <div class="center">
-      <button class="chevron"><img src="../assets/leftChevron.png" /></button>
-      <span class="weekRange">{{dateStart.toDateString()}} to {{dateEnd.toDateString()}}</span>
-      <button class="chevron"><img src="../assets/rightChevron.png" /></button>
-    </div>
-    <form class="weekFields">
-      <div v-for="date in dateRange" :key="date.id">
-        <label>{{dayShortForms[date.getDay()]}} {{date.getDate()}}</label>
-        <input v-bind:name="dayShortForms[date.getDay()]"/>
+    <div class="weekFields">
+      <div v-for="(hour, index) in weekHours" :key="`hour-${index}`">
+        <label>{{dayShortForms[index]}} {{startOfWeek + index}}</label>
+        <input disabled v-bind:value="hour"/>
       </div>
-      <div class="center">
-        <button class="chevron" v-on:click="getPreviousWeek()"><img src="../assets/leftChevron.png" /></button>
-        <span class="weekRange">{{this.getStartDate(weekNumber)}} to {{this.getEndDate(weekNumber)}}</span>
-        <button class="chevron" v-on:click="getNextWeek()"><img src="../assets/rightChevron.png" /></button>
+      <div>
+        <label>Total</label>
+        <input disabled v-bind:value="getTotal()"/>
       </div>
-      <form class="weekFields">
-        <div v-for="(hour, index) in weekHours" :key="`hour-${index}`">
-          <label>{{dayShortForms[index]}} {{startOfWeek + index}}</label>
-          <input disabled v-bind:value="hour"/>
-        </div>
-        <div>
-          <label>Total</label>
-          <input disabled v-bind:value="getTotal()"/>
-        </div>
-      </form>
     </div>
   </div>
 </template>
@@ -63,24 +49,12 @@ export default {
       startOfWeek: 0,
       endOfWeek: 0,
       weekHours: [],
-
       employees: [],
-      selectedEmployee: this.user.user_id
-    }
-  },
-  computed: {
-    dateRange: function() {
-      let dateRange = [];
-      for (let i = 0; i <= 6; i++) {
-        let newDate = new Date(this.dateStart.toDateString())
-        newDate.setDate(this.dateStart.getDate() + i)
-        dateRange.push(newDate)
-      }
-      return dateRange
+      selectedEmployee: this.user.user_id,
     }
   },
   created() {
-    if(this.user && this.user.type_id === 3)
+    if(this.user && this.user.user_type_id === 3)
     {
       this.initialGetTimeEntry()
     }
@@ -106,7 +80,7 @@ export default {
       this.getWeekTimeEntries()
     },
     getEmployees() {
-      this.$http.get('/api/users/getEmployees')
+      this.$http.get('/api/users')
       .then(res => {
         let data = res.data
         this.employees = []
@@ -213,12 +187,16 @@ export default {
     transform: translate(-50%, -50%);
   }
 
+  .top {
+    top: 30%;
+  }
+
   .weekRange {
     font-size: 20px;
   }
 
   .weekFields {
-    margin-top: 60px;
+    margin-top: 100px;
     text-align: center;
   }
 

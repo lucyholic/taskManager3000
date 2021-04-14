@@ -32,7 +32,7 @@ router.get('/:userId', function (req, res) {
 router.post('/login', function (req, res) {
   var loginName = req.body.loginName;
   var password = req.body.password;
-  mysqlDB.query("SELECT *, user_types.type AS user_type, user_types.type_id AS user_type_id, " 
+  mysqlDB.query("SELECT users.*, user_departments.department AS department, user_types.type AS user_type, user_types.type_id AS user_type_id, " 
     + "time_log_types.type AS time_log_type, time_log_types.type_id AS time_log_type_id, time_logs.time_log_id FROM users "
     + "JOIN user_departments ON users.department_id = user_departments.department_id "
     + "JOIN user_types ON users.user_type_id = user_types.type_id "
@@ -92,19 +92,6 @@ router.put('/:userId', function(req, res) {
     res.send(result)
   })
 })
-
-router.get('/getEmployees', function(req, res) {
-  mysqlDB.query("SELECT user_id, first_name, last_name, department, wage"
-  + " FROM users"
-  + " JOIN user_types"
-  + " ON user_type_id = type_id"
-  + " JOIN user_departments"
-  + " USING (department_id)"
-  + " WHERE type_id = 3", 
-  function (error, rows, fields) {
-    res.send(rows)
-  })
-});
 
 router.get('/test', function (req, res) {
   res.send('Test Users');
